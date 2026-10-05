@@ -1,11 +1,9 @@
-from django.shortcuts import render
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import DispatchRequest
-from .serializers import DispatchRequestSerializer
+from .models import DispatchRequest,EquipmentPortfolio,EquipmentCategory,Blog
+from .serializers import DispatchRequestSerializer,EquipmentPortfolioSerializer,EquipmentCategorySerializer,BlogSerializer
 
 
 @api_view(["POST"])
@@ -30,3 +28,40 @@ def enquiry_submit(request):
         },
         status=status.HTTP_400_BAD_REQUEST,
     )
+
+@api_view(["GET"])
+def equipment_category_list(request):
+    categories = EquipmentCategory.objects.filter(
+        is_active=True
+    )
+
+    serializer = EquipmentCategorySerializer(
+        categories,
+        many=True
+    )
+
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def equipment_portfolio_list(request):
+    portfolios = EquipmentPortfolio.objects.filter(
+        is_active=True
+    ).order_by("id")
+
+    serializer = EquipmentPortfolioSerializer(portfolios, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def blog_list(request):
+    blogs = Blog.objects.filter(
+        is_active=True
+    ).order_by("-created_at")
+
+    serializer = BlogSerializer(
+        blogs,
+        many=True
+    )
+
+    return Response(serializer.data)

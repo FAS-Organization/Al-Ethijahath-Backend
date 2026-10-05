@@ -1,7 +1,16 @@
 from rest_framework import serializers
-from .models import DispatchRequest
+from .models import DispatchRequest,EquipmentPortfolio,EquipmentCategory,Blog
 
 
+class EquipmentCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EquipmentCategory
+        fields = [
+            "id",
+            "name",
+        ]
+
+    
 class DispatchRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -30,3 +39,35 @@ class DispatchRequestSerializer(serializers.ModelSerializer):
             )
 
         return value
+
+
+class EquipmentPortfolioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EquipmentPortfolio
+        fields = [
+            "id",
+            "title",
+            "portfolio_image",
+            "description",
+        ]
+        read_only_fields = ["id"]
+
+
+class BlogSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(
+        format="%d %B %Y, %I:%M %p"
+    )
+    class Meta:
+        model = Blog
+        fields = [
+            "id",
+            "name",
+            "designation",
+            "title",
+            "description",
+            "created_at",
+        ]
+        read_only_fields = [
+            "id",
+            "created_at",
+        ]

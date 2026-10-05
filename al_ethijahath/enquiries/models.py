@@ -56,3 +56,31 @@ class DispatchRequest(models.Model):
 
     def __str__(self):
         return f"{self.company_name} - {self.equipment_category.name}"
+
+
+class EquipmentPortfolio(models.Model):
+    portfolio_image = models.ImageField(upload_to = 'portfolio_mages/')
+    title = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 255)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Equipment Portfolio"
+        verbose_name_plural = "Equipment Portfolioes"
+
+    def __str__(self):
+        return f"{self.title}"
+
+class Blog(models.Model):
+    name = models.CharField(max_length=150)
+    designation = models.CharField(max_length=150)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.title
