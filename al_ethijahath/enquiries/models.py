@@ -25,28 +25,21 @@ class DispatchRequest(models.Model):
         CANCELLED = "cancelled", "Cancelled"
 
     company_name = models.CharField(max_length=200)
-
     contact_person = models.CharField(max_length=150)
-
     phone = models.CharField(max_length=30)
-
     equipment_category = models.ForeignKey(
         EquipmentCategory,
         on_delete=models.PROTECT,
         related_name="dispatch_requests"
     )
     photo = models.ImageField(upload_to="equipment_images/",blank=True,null=True)
-
     issue_description = models.TextField(blank=True)
-
     status = models.CharField(
         max_length=20,
         choices=Status.choices,
         default=Status.PENDING
     )
-
     created_at = models.DateTimeField(auto_now_add=True)
-
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -71,11 +64,13 @@ class EquipmentPortfolio(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+
 class Blog(models.Model):
     name = models.CharField(max_length=150)
     designation = models.CharField(max_length=150)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
+
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

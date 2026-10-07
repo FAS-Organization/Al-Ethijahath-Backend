@@ -65,3 +65,5 @@ def blog_list(request):
     )
 
     return Response(serializer.data)
+
+    

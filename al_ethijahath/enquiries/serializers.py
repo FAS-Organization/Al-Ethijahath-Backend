@@ -40,6 +40,18 @@ class DispatchRequestSerializer(serializers.ModelSerializer):
 
         return value
 
+    def validate_photo(self, value):
+        if value is None:
+            return value
+
+        max_size = 10 * 1024 * 1024
+
+        if value.size > max_size:
+            raise serializers.ValidationError(
+                "Photo size must be 10 MB or less."
+            )
+
+        return value
 
 class EquipmentPortfolioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,6 +69,7 @@ class BlogSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(
         format="%d %B %Y, %I:%M %p"
     )
+
     class Meta:
         model = Blog
         fields = [
@@ -65,9 +78,7 @@ class BlogSerializer(serializers.ModelSerializer):
             "designation",
             "title",
             "description",
+            "is_active",
             "created_at",
         ]
-        read_only_fields = [
-            "id",
-            "created_at",
-        ]
+        read_only_fields = ["id", "created_at"]
