@@ -57,7 +57,7 @@ def equipment_portfolio_list(request):
 def blog_list(request):
     blogs = Blog.objects.filter(
         is_active=True
-    ).order_by("-created_at")
+    ).order_by("-created_at")[:6]
 
     serializer = BlogSerializer(
         blogs,
