@@ -1,12 +1,16 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
+from rest_framework.throttling import AnonRateThrottle
 from rest_framework.response import Response
 from rest_framework import status
 
 from .models import DispatchRequest,EquipmentPortfolio,EquipmentCategory,Blog
 from .serializers import DispatchRequestSerializer,EquipmentPortfolioSerializer,EquipmentCategorySerializer,BlogSerializer
 
+class DispatchRequestThrottle(AnonRateThrottle):
+    rate = "10/hour"
 
 @api_view(["POST"])
+@throttle_classes([DispatchRequestThrottle])
 def enquiry_submit(request):
     serializer = DispatchRequestSerializer(data=request.data)
 
@@ -28,6 +32,7 @@ def enquiry_submit(request):
         },
         status=status.HTTP_400_BAD_REQUEST,
     )
+
 
 @api_view(["GET"])
 def equipment_category_list(request):
