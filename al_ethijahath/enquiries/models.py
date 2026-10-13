@@ -33,7 +33,7 @@ class DispatchRequest(models.Model):
         related_name="dispatch_requests"
     )
     photo = models.ImageField(upload_to="equipment_images/",blank=True,null=True)
-    issue_description = models.TextField(blank=True)
+    issue_description = models.TextField(blank=True,max_length=500)
     status = models.CharField(
         max_length=20,
         choices=Status.choices,

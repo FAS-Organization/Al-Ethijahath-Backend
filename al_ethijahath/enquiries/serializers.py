@@ -13,6 +13,12 @@ class EquipmentCategorySerializer(serializers.ModelSerializer):
     
 class DispatchRequestSerializer(serializers.ModelSerializer):
 
+    issue_description = serializers.CharField(
+    max_length=500,
+    required=False,
+    allow_blank=True
+    )
+    
     class Meta:
         model = DispatchRequest
         fields = [
