@@ -52,7 +52,7 @@ class DispatchRequest(models.Model):
 
 
 class EquipmentPortfolio(models.Model):
-    portfolio_image = models.ImageField(upload_to = 'portfolio_mages/')
+    portfolio_image = models.ImageField(upload_to = 'portfolio_images/')
     title = models.CharField(max_length = 100)
     description = models.CharField(max_length = 255)
     is_active = models.BooleanField(default=True)
